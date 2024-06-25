@@ -1,17 +1,24 @@
 ﻿using UnityEngine;
-
+using UnityEngine.UI; 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private float speed;
     [SerializeField]
     private bool enableKeyboardControl;
+    [SerializeField]
+    private int maxHealth = 5; 
+    [SerializeField]
+    private Text healthText; 
+
+    private int currentHealth;
     private Rigidbody2D rb2d;
-    private Collision2D c2D;
 
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        currentHealth = maxHealth; 
+        UpdateHealthUI();
     }
 
     void FixedUpdate()
@@ -20,8 +27,8 @@ public class PlayerController : MonoBehaviour
         {
             float moveHorizontal = Input.GetAxis("Horizontal");
             float moveVertical = Input.GetAxis("Vertical");
-            Vector2 movement = new Vector2(moveHorizontal, moveVertical) * speed;
-            rb2d.velocity = movement;
+            Vector2 movement = new Vector2(moveHorizontal, moveVertical);
+            rb2d.AddForce(movement * speed);
         }
         else
         {
@@ -49,8 +56,31 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D c2D)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Ship go boom");
+        if (collision.gameObject.CompareTag("Asteroid")) 
+        {
+            TakeDamage(1); 
+            Debug.Log("Ship go boom");
+        }
+    }
+
+    void TakeDamage(int damage)
+    {
+        currentHealth -= damage; 
+        UpdateHealthUI();
+
+        if (currentHealth <= 0)
+        {
+            Debug.Log("Player is dead");
+        }
+    }
+
+    void UpdateHealthUI()
+    {
+        if (healthText != null)
+        {
+            healthText.text = "Health: " + currentHealth.ToString();
+        }
     }
 }
