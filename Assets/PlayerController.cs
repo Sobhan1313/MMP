@@ -33,13 +33,20 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Vector3 mouseScreenPosition = Input.mousePosition;
-        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
+        Ray ray = Camera.main.ScreenPointToRay(mouseScreenPosition);
+        Plane xyPlane = new Plane(Vector3.forward, Vector3.zero);
 
-        Vector3 direction = mouseWorldPosition - transform.position;
+        float distance;
+        if (xyPlane.Raycast(ray, out distance))
+        {
+            Vector3 mouseWorldPosition = ray.GetPoint(distance);
+            
+            Vector3 direction = mouseWorldPosition - transform.position;
 
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        }
     }
 
     void OnCollisionEnter2D(Collision2D c2D)
