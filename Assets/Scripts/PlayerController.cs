@@ -63,12 +63,20 @@ public class PlayerController : MonoBehaviour
             TakeDamage(1); 
             Debug.Log("Ship go boom");
         }
+         if (collision.gameObject.CompareTag("Alien")) 
+        {
+            TakeDamage(1); 
+            Debug.Log("Ship go boom");
+        }
     }
 
     void TakeDamage(int damage)
     {
-        currentHealth -= damage; 
-        UpdateHealthUI();
+        if(currentHealth > 0)
+        {
+            currentHealth -= damage; 
+            UpdateHealthUI();
+        }
 
         if (currentHealth <= 0)
         {
