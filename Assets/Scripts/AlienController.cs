@@ -59,6 +59,13 @@ public class AlienController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+
+        if (collision.gameObject.CompareTag("Alien"))
+    {
+        // Do nothing
+        return;
+    }
+
         Debug.Log("Alien collided with " + collision.gameObject.name);
 
         rb2d.velocity = Vector2.zero;
