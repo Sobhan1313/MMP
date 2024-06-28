@@ -28,7 +28,7 @@ public class AlienSpawner : MonoBehaviour
     Vector2 GetRandomPositionAtEdge()
     {
         float screenAspect = (float)Screen.width / (float)Screen.height;
-        float cameraHeight = Camera.main.orthographicSize * 2;
+        float cameraHeight = Camera.main.orthographicSize * 70;
         float cameraWidth = cameraHeight * screenAspect;
 
         float x = 0f;
