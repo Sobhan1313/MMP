@@ -7,8 +7,6 @@ public class AlienSpawner : MonoBehaviour
     public GameObject Alien; // Prefab der Aliens, welche gespawnt werden
     [SerializeField]
     public int numberOfAliens; // Anzahl der Aliens, die gespawnt werden sollen
-    [SerializeField]
-    public float spawnAreaPadding; // Abstand vom Rand der Spielfläche, um Spawnpositionen zu berechnen z.B. 1.0f
 
     void Start()
     {
@@ -27,9 +25,10 @@ public class AlienSpawner : MonoBehaviour
 
     Vector2 GetRandomPositionAtEdge()
     {
-        float screenAspect = (float)Screen.width / (float)Screen.height;
-        float cameraHeight = Camera.main.orthographicSize * 70;
-        float cameraWidth = cameraHeight * screenAspect;
+        float cameraHeight = Camera.main.orthographicSize * 2;
+        float scale = 50;
+        float spawnHeight = cameraHeight * scale;
+        float spawnWidth = spawnHeight * Camera.main.aspect;
 
         float x = 0f;
         float y = 0f;
@@ -40,20 +39,20 @@ public class AlienSpawner : MonoBehaviour
         switch (edge)
         {
             case 0: // Obere Kante
-                x = Random.Range(-cameraWidth / 2 + spawnAreaPadding, cameraWidth / 2 - spawnAreaPadding);
-                y = Camera.main.orthographicSize + spawnAreaPadding;
+                x = Random.Range(-spawnWidth / 2, spawnWidth / 2);
+                y = spawnHeight / 2 ;
                 break;
             case 1: // Untere Kante
-                x = Random.Range(-cameraWidth / 2 + spawnAreaPadding, cameraWidth / 2 - spawnAreaPadding);
-                y = -Camera.main.orthographicSize - spawnAreaPadding;
+                x = Random.Range(-spawnWidth / 2, spawnWidth / 2);
+                y = -spawnHeight / 2;
                 break;
             case 2: // Linke Kante
-                x = -cameraWidth / 2 - spawnAreaPadding;
-                y = Random.Range(-cameraHeight / 2 + spawnAreaPadding, cameraHeight / 2 - spawnAreaPadding);
+                x = -spawnWidth / 2;
+                y = Random.Range(-spawnHeight / 2, spawnHeight / 2);
                 break;
             case 3: // Rechte Kante
-                x = cameraWidth / 2 + spawnAreaPadding;
-                y = Random.Range(-cameraHeight / 2 + spawnAreaPadding, cameraHeight / 2 - spawnAreaPadding);
+                x = spawnWidth / 2;
+                y = Random.Range(-spawnHeight / 2, spawnHeight / 2);
                 break;
         }
 
