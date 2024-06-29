@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AlienSpawner : MonoBehaviour
 {
-    public GameObject Alien; // Prefab der Aliens, welche gespawnt werden
+    public GameObject[] Aliens; // Prefab der Aliens, welche gespawnt werden
     [SerializeField]
     public int numberOfAliens; // Anzahl der Aliens, die gespawnt werden sollen
 
@@ -19,7 +19,11 @@ public class AlienSpawner : MonoBehaviour
         {
             Vector2 spawnPosition = GetRandomPositionAtEdge();  // zufällige Spawn-Position am Rand der Spielfläche
             Quaternion spawnRotation = GetRotationTowardsCenter(spawnPosition);  // Ausrichtung der Aliens Richtung Zentrum
-            Instantiate(Alien, spawnPosition, spawnRotation);
+            // Wähle zufällig ein Alien-Prefab aus der Liste aus
+            GameObject selectedAlien = Aliens[Random.Range(0, Aliens.Length)];
+
+            // Instanziere das ausgewählte Alien-Prefab
+            Instantiate(selectedAlien, spawnPosition, spawnRotation);
         }
     }
 

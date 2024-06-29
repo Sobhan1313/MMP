@@ -1039,9 +1039,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb614b87afdf4489b99e089ffa5b349b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Alien: {fileID: 5208440417759351389, guid: 83ab7fa3cdccb4c05b0dcb9759a8c560, type: 3}
+  Aliens:
+  - {fileID: 5208440417759351389, guid: 83ab7fa3cdccb4c05b0dcb9759a8c560, type: 3}
+  - {fileID: 2034647383097731939, guid: c8ed5a8325f3743b8b8ebcdfcc4977fc, type: 3}
   numberOfAliens: 5
-  spawnAreaPadding: 1
 --- !u!4 &669049403
 Transform:
   m_ObjectHideFlags: 0

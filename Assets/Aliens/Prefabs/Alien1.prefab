@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1014488544195460841}
   - component: {fileID: 1492600226197747651}
   m_Layer: 6
-  m_Name: MinimapGraphicsAlien
+  m_Name: MinimapGraphicsAlien1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.27201307, g: 0.6886792, b: 0.09420614, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -96,9 +96,9 @@ GameObject:
   - component: {fileID: -6973505876370159672}
   - component: {fileID: 6208684069328928542}
   - component: {fileID: 4308955883118569039}
-  - component: {fileID: 1059487804741779201}
+  - component: {fileID: -7758978153798611694}
   m_Layer: 0
-  m_Name: Alien
+  m_Name: Alien1
   m_TagString: Alien
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -234,7 +234,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1059487804741779201
+--- !u!114 &-7758978153798611694
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -247,4 +247,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  target: Player
+  target: reticle
