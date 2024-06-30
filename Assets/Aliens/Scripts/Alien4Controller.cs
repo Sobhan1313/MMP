@@ -5,7 +5,7 @@ using UnityEngine;
 public class Alien4Controller : MonoBehaviour
 {
     [SerializeField]
-    public float speed;
+    public float speed = 4.0f;
     [SerializeField]
     public string target;    //Ziel, welches Benutzer angibt
     [SerializeField]
@@ -17,7 +17,7 @@ public class Alien4Controller : MonoBehaviour
     private Rigidbody2D rb2d;
     private Animator animator;
     [SerializeField]
-    private int health;
+    private int health = 3;
     private float nextFireTime;
 
 

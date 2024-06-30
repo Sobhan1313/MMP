@@ -248,7 +248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   target: Player
-  fireRate: 10
+  fireRate: 5
   AlienLaser: {fileID: 5253603531829699977, guid: 067561615f0c7460ab16d563bdf6b0b0, type: 3}
   minFireDistance: 10
   health: 3
