@@ -1043,6 +1043,7 @@ MonoBehaviour:
   - {fileID: 5208440417759351389, guid: 83ab7fa3cdccb4c05b0dcb9759a8c560, type: 3}
   - {fileID: 2034647383097731939, guid: c8ed5a8325f3743b8b8ebcdfcc4977fc, type: 3}
   - {fileID: 2940859401207222913, guid: 0bb02df4fc8b047cd841955cc43323a7, type: 3}
+  - {fileID: 7952188922028074974, guid: 4a718f0503b8d41ad8d8be269c917295, type: 3}
   numberOfAliens: 5
 --- !u!4 &669049403
 Transform:
