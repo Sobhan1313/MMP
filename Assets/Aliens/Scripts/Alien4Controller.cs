@@ -12,6 +12,8 @@ public class Alien4Controller : MonoBehaviour
     public float fireRate = 1.0f; // Feuerfrequenz in Sekunden
     public GameObject AlienLaser;
     private GameObject targetFound; // Zielpunkt, auf den sich der Alien zubewegt
+    [SerializeField]
+    public float minFireDistance = 5.0f; // Mindestabstand zum Zielobjekt
     private Rigidbody2D rb2d;
     private Animator animator;
     [SerializeField]
@@ -33,8 +35,12 @@ public class Alien4Controller : MonoBehaviour
     {
         MoveTowardsTarget();
         RotateTowardsTarget();
-        // Laser abfeuern
-        if (Time.time >= nextFireTime)
+
+        // Berechne die Entfernung zum Zielobjekt
+        float distanceToTarget = Vector2.Distance(transform.position, targetFound.transform.position);
+
+        // Laser abfeuern, wenn der Mindestabstand erreicht ist
+        if (Time.time >= nextFireTime && distanceToTarget <= minFireDistance)
         {
             FireLaser();
             nextFireTime = Time.time + fireRate;
@@ -43,8 +49,11 @@ public class Alien4Controller : MonoBehaviour
 
     void FireLaser()
     {
-        
-        Instantiate(AlienLaser, transform.position, transform.rotation);
+
+        // Definiere eine kleine Verschiebungsdistanz
+        float offsetDistance = 1.0f;
+
+        Instantiate(AlienLaser, (transform.position + (transform.right * offsetDistance)), transform.rotation);
 
     }
 

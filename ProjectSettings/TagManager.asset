@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Asteroid
   - Alien
+  - Laser
   layers:
   - Default
   - TransparentFX
