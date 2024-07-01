@@ -11,12 +11,14 @@ public class AlienController : MonoBehaviour
     private GameObject targetFound; // Zielpunkt, auf den sich der Alien zubewegt
     private Rigidbody2D rb2d;
     private Animator animator;
+    private AlienSpawner alienSpawner;
 
 
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        alienSpawner = FindObjectOfType<AlienSpawner>();
         if (target != null)
     {
         targetFound = GameObject.Find(target); // Beispiel: Finde das GameObject mit dem Namen "Player"
@@ -69,6 +71,11 @@ public class AlienController : MonoBehaviour
         Debug.Log("Alien collided with " + collision.gameObject.name);
 
         rb2d.velocity = Vector2.zero;
+
+        if (alienSpawner != null)
+        {
+            alienSpawner.AlienDestroyed();
+        }
         Destroy(gameObject);    //Alien wird bei Kollision zerstört
     
     }

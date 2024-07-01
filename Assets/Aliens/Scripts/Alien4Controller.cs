@@ -19,12 +19,14 @@ public class Alien4Controller : MonoBehaviour
     [SerializeField]
     private int health = 3;
     private float nextFireTime;
+    private AlienSpawner alienSpawner;
 
 
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        alienSpawner = FindObjectOfType<AlienSpawner>();
         if (target != null)
     {
         targetFound = GameObject.Find(target); // Beispiel: Finde das GameObject mit dem Namen "Player"
@@ -95,8 +97,12 @@ public class Alien4Controller : MonoBehaviour
         health--;
         Debug.Log("Alien collided with " + collision.gameObject.name);
         if (health <= 0) {
-             rb2d.velocity = Vector2.zero;
-             Destroy(gameObject);    //Alien wird bei Kollision zerstört
+            rb2d.velocity = Vector2.zero;
+            if (alienSpawner != null)
+            {
+                alienSpawner.AlienDestroyed();
+            }
+            Destroy(gameObject);    //Alien wird bei Kollision zerstört
         }
     }
 

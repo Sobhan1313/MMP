@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AlienSpawner : MonoBehaviour
 {
     public GameObject[] Aliens; // Prefab der Aliens, welche gespawnt werden
     [SerializeField]
     public int numberOfAliens; // Anzahl der Aliens, die gespawnt werden sollen
+    public Text alienCountText; // Text-Element zur Anzeige der Alien-Anzahl
+    private int alienCount;
 
     void Start()
     {
@@ -15,6 +18,9 @@ public class AlienSpawner : MonoBehaviour
 
     void SpawnAliens()
     {
+        alienCount = numberOfAliens;
+        UpdateAlienCountText();
+
         for (int i = 0; i < numberOfAliens; i++)
         {
             Vector2 spawnPosition = GetRandomPositionAtEdge();  // zufällige Spawn-Position am Rand der Spielfläche
@@ -71,5 +77,16 @@ public class AlienSpawner : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         return Quaternion.Euler(0, 0, angle);
+    }
+
+    public void AlienDestroyed()
+    {
+        alienCount--;
+        UpdateAlienCountText();
+    }
+
+    void UpdateAlienCountText()
+    {
+        alienCountText.text = "Aliens: " + alienCount;
     }
 }
