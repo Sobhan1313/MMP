@@ -215,6 +215,7 @@ MonoBehaviour:
   enableKeyboardControl: 1
   maxHealth: 5
   healthText: {fileID: 0}
+  PlayerLaser: {fileID: 8343380284483409113, guid: 7422e9ca326f943979dd4d1e000d8117, type: 3}
 --- !u!70 &997888521154578310
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

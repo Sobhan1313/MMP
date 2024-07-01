@@ -52,7 +52,7 @@ public class Alien4Controller : MonoBehaviour
     void FireLaser()
     {
 
-        // Definiere eine kleine Verschiebungsdistanz
+        // Verschiebungsdistanz
         float offsetDistance = 1.0f;
 
         Instantiate(AlienLaser, (transform.position + (transform.right * offsetDistance)), transform.rotation);
@@ -63,7 +63,7 @@ public class Alien4Controller : MonoBehaviour
     {
         if (targetFound != null)
         {
-            // Berechne die Richtung zum Zielpunkt
+            // Berechnet die Richtung zum Zielpunkt
             Vector2 targetDirection = (targetFound.transform.position - transform.position).normalized;
             rb2d.velocity = targetDirection * speed;
 

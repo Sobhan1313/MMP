@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     private int maxHealth = 5; 
     [SerializeField]
     private Text healthText; 
-
+    public GameObject PlayerLaser;
     private int currentHealth;
     private Rigidbody2D rb2d;
     private bool isDestroyed = false;
@@ -57,6 +57,20 @@ public class PlayerController : MonoBehaviour
 
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         }
+        if (Input.GetMouseButtonDown(0))
+        {
+            FireLaser();
+        }
+    }
+
+    void FireLaser()
+    {
+
+        // Verschiebungsdistanz
+        float offsetDistance = 2.0f;
+
+        Instantiate(PlayerLaser, (transform.position + (transform.right * offsetDistance)), transform.rotation);
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)
