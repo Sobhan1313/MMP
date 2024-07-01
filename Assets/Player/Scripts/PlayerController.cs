@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         }
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
             FireLaser();
         }
