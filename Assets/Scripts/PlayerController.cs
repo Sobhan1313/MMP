@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 
     private int currentHealth;
     private Rigidbody2D rb2d;
+    private bool isDestroyed = false;
 
     void Start()
     {
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (isDestroyed) return;
         if (enableKeyboardControl)
         {
             float moveHorizontal = Input.GetAxis("Horizontal");
@@ -39,6 +41,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (isDestroyed) return;
         Vector3 mouseScreenPosition = Input.mousePosition;
         Ray ray = Camera.main.ScreenPointToRay(mouseScreenPosition);
         Plane xyPlane = new Plane(Vector3.forward, Vector3.zero);
@@ -86,6 +89,7 @@ public class PlayerController : MonoBehaviour
         if (currentHealth <= 0)
         {
             Debug.Log("Player is dead");
+            isDestroyed = true;              // Setze die isDestroyed-Flag auf true
             Destroy(this.gameObject);
         }
     }
