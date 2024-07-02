@@ -23,11 +23,13 @@ public class PlayerController : MonoBehaviour
     private Vector2 minBounds;
     private Vector2 maxBounds;
     private float damageInterval = 1f; // Damage interval in seconds
+    public HealthBar healthBar;
 
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        currentHealth = maxHealth;
+        currentHealth = maxHealth; 
+        healthBar.SetMaxHealth(maxHealth);
         UpdateHealthUI();
         CalculateBounds();
         StartCoroutine(CheckBoundsAndDamage());
@@ -95,6 +97,7 @@ public class PlayerController : MonoBehaviour
         if (currentHealth > 0)
         {
             currentHealth -= damage;
+            healthBar.SetHealth(currentHealth);
             UpdateHealthUI();
         }
 
