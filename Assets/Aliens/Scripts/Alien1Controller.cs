@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AlienController : MonoBehaviour
+public class Alien1Controller : MonoBehaviour
 {
     [SerializeField]
     public float speed;
