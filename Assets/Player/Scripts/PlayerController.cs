@@ -75,9 +75,13 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("Reticle")) 
+        {
+            return;
+        }
         if (collision.gameObject.CompareTag("Asteroid")) 
         {
-            TakeDamage(1); 
+            
             Debug.Log("Ship go boom");
         }
         if (collision.gameObject.CompareTag("Alien")) 
