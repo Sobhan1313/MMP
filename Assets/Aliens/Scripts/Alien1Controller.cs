@@ -68,12 +68,6 @@ public class AlienController : MonoBehaviour
         return;
     }
 
-    if (collision.gameObject.CompareTag("Reticle"))
-    {
-        Destroy(this.gameObject);
-        return;
-    }
-
         Debug.Log("Alien collided with " + collision.gameObject.name);
 
         rb2d.velocity = Vector2.zero;
