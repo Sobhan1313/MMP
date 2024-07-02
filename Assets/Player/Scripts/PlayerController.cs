@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public GameObject PlayerLaser;
     private int currentHealth;
     private Rigidbody2D rb2d;
+    [SerializeField]
+    private Animator animator;
     private bool isDestroyed = false;
 
     void Start()
@@ -31,6 +33,8 @@ public class PlayerController : MonoBehaviour
             float moveVertical = Input.GetAxis("Vertical");
             Vector2 movement = new Vector2(moveHorizontal, moveVertical) * speed;
             rb2d.velocity = movement;
+            float currentSpeed = movement.magnitude;
+            animator.SetFloat("Speed", currentSpeed);
         }
         else
         {
