@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.UI;
+using System.Collections;
+
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
@@ -7,9 +9,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private bool enableKeyboardControl;
     [SerializeField]
-    private int maxHealth = 5; 
+    private int maxHealth = 5;
     [SerializeField]
-    private Text healthText; 
+    private Text healthText;
     public GameObject PlayerLaser;
     private int currentHealth;
     private Rigidbody2D rb2d;
@@ -17,11 +19,17 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private bool isDestroyed = false;
 
+    private Vector2 minBounds;
+    private Vector2 maxBounds;
+    private float damageInterval = 1f; // Damage interval in seconds
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        currentHealth = maxHealth; 
+        currentHealth = maxHealth;
         UpdateHealthUI();
+        CalculateBounds();
+        StartCoroutine(CheckBoundsAndDamage());
     }
 
     void FixedUpdate()
@@ -54,11 +62,8 @@ public class PlayerController : MonoBehaviour
         if (xyPlane.Raycast(ray, out distance))
         {
             Vector3 mouseWorldPosition = ray.GetPoint(distance);
-            
             Vector3 direction = mouseWorldPosition - transform.position;
-
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         }
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
@@ -69,46 +74,35 @@ public class PlayerController : MonoBehaviour
 
     void FireLaser()
     {
-
         // Verschiebungsdistanz
         float offsetDistance = 2.0f;
-
-        Instantiate(PlayerLaser, (transform.position + (transform.right * offsetDistance)), transform.rotation);
-
+        Instantiate(PlayerLaser, transform.position + (transform.right * offsetDistance), transform.rotation);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Asteroid")) 
+        if ((collision.gameObject.CompareTag("Reticle")) && (collision.gameObject.CompareTag("Asteroid"))) return;
+        
+        if (collision.gameObject.CompareTag("Alien") || collision.gameObject.CompareTag("Laser"))
         {
-            TakeDamage(1); 
-            Debug.Log("Ship go boom");
-        }
-        if (collision.gameObject.CompareTag("Alien")) 
-        {
-            TakeDamage(1); 
-            Debug.Log("Ship go boom");
-        }
-        if (collision.gameObject.CompareTag("Laser")) 
-        {
-            TakeDamage(1); 
+            TakeDamage(1);
             Debug.Log("Ship go boom");
         }
     }
 
     void TakeDamage(int damage)
     {
-        if(currentHealth > 0)
+        if (currentHealth > 0)
         {
-            currentHealth -= damage; 
+            currentHealth -= damage;
             UpdateHealthUI();
         }
 
         if (currentHealth <= 0)
         {
             Debug.Log("Player is dead");
-            isDestroyed = true;              // Setze die isDestroyed-Flag auf true
-            Destroy(this.gameObject);
+            isDestroyed = true;
+            Destroy(gameObject);
         }
     }
 
@@ -118,5 +112,36 @@ public class PlayerController : MonoBehaviour
         {
             healthText.text = "Health: " + currentHealth.ToString();
         }
+    }
+
+    void CalculateBounds()
+    {
+        float cameraHeight = Camera.main.orthographicSize * 2;
+        float scale = 50; // Adjust this value as needed
+        float spawnHeight = cameraHeight * scale;
+        float spawnWidth = spawnHeight * Camera.main.aspect;
+
+        minBounds = new Vector2(-spawnWidth / 2, -spawnHeight / 2);
+        maxBounds = new Vector2(spawnWidth / 2, spawnHeight / 2);
+    }
+
+    private IEnumerator CheckBoundsAndDamage()
+    {
+        while (!isDestroyed)
+        {
+            if (!IsWithinBounds(transform.position))
+            {
+                TakeDamage(1);
+                Debug.Log("Player is outside the background bounds and took damage.");
+            }
+
+            yield return new WaitForSeconds(damageInterval);
+        }
+    }
+
+    bool IsWithinBounds(Vector2 position)
+    {
+        return position.x >= minBounds.x && position.x <= maxBounds.x &&
+               position.y >= minBounds.y && position.y <= maxBounds.y;
     }
 }

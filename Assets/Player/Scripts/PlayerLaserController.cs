@@ -11,6 +11,8 @@ public class PlayerLaserController : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+
+        StartCoroutine(DestroyAfterTime(10.0f));
     }
 
     void Update()
@@ -25,5 +27,14 @@ public class PlayerLaserController : MonoBehaviour
         rb2d.velocity = Vector2.zero;
         Destroy(gameObject);
        
+    }
+
+    private IEnumerator DestroyAfterTime(float delay)
+    {
+        
+        yield return new WaitForSeconds(delay);
+
+        
+        Destroy(gameObject);
     }
 }
