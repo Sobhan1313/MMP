@@ -72,7 +72,7 @@ public class Alien1Controller : MonoBehaviour
 
         rb2d.velocity = Vector2.zero;
 
-        if (alienSpawner != null)
+        if (alienSpawner != null && !collision.gameObject.CompareTag("Reticle"))
         {
             alienSpawner.AlienDestroyed();
         }

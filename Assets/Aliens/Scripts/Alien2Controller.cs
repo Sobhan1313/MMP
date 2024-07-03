@@ -72,7 +72,7 @@ public class Alien2Controller : MonoBehaviour
         Debug.Log("Alien collided with " + collision.gameObject.name);
         if (health <= 0) {
             rb2d.velocity = Vector2.zero;
-            if (alienSpawner != null)
+            if (alienSpawner != null && !collision.gameObject.CompareTag("Reticle"))
             {
                 alienSpawner.AlienDestroyed();
             }

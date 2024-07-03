@@ -1348,6 +1348,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: reticle
       objectReference: {fileID: 0}
+    - target: {fileID: 16423402918772, guid: 63f7219621c7e4a6bba28ef28a943b18, type: 3}
+      propertyPath: m_TagString
+      value: Reticle
+      objectReference: {fileID: 0}
     - target: {fileID: 2743860042466825241, guid: 63f7219621c7e4a6bba28ef28a943b18, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -1400,7 +1404,8 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6765480299888489122, guid: 63f7219621c7e4a6bba28ef28a943b18, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

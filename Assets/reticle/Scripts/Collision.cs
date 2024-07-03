@@ -13,7 +13,7 @@ public class Collision : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Alien"))
+        if (other.CompareTag("Alien") && alienSpawner != null)
         {
             Destroy(other.gameObject);
             alienSpawner.AlienDestroyed();
