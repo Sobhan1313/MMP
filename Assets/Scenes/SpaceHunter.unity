@@ -781,8 +781,8 @@ MonoBehaviour:
   m_ShowCameraFrustum: 1
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
-  m_BlendUpdateMethod: 1
+  m_UpdateMethod: 0
+  m_BlendUpdateMethod: 0
   m_DefaultBlend:
     m_Style: 1
     m_Time: 2
@@ -2275,7 +2275,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 381615886}
   m_Lens:
-    FieldOfView: 55
+    FieldOfView: 70
     OrthographicSize: 3
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -2407,6 +2407,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1739487647607357563, guid: 31f6bb0843f0c4e4eba65662dc262f1f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1739487647607357563, guid: 31f6bb0843f0c4e4eba65662dc262f1f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
