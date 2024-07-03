@@ -1030,6 +1030,7 @@ MonoBehaviour:
   - {fileID: 7952188922028074974, guid: 4a718f0503b8d41ad8d8be269c917295, type: 3}
   numberOfAliens: 5
   alienCountText: {fileID: 1157533558}
+  secondsBetweenWaves: 30
 --- !u!4 &669049403
 Transform:
   m_ObjectHideFlags: 0
