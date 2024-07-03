@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,21 +6,35 @@ public class AlienSpawner : MonoBehaviour
 {
     public GameObject[] Aliens; // Prefab der Aliens, welche gespawnt werden
     [SerializeField]
-    public int numberOfAliens; // Anzahl der Aliens, die gespawnt werden sollen
+    private int numberOfAliens; // Anfangsanzahl der Aliens
     public Text alienCountText; // Text-Element zur Anzeige der Alien-Anzahl
     private int alienCount;
+    private int currentWaveNumberOfAliens; // Anzahl der Aliens für die aktuelle Welle
+    [SerializeField]
+    private float secondsBetweenWaves; // Sekunden zwischen den Wellen
 
     void Start()
     {
-        SpawnAliens();
+        currentWaveNumberOfAliens = numberOfAliens;
+        StartCoroutine(SpawnWaves());
+    }
+
+    IEnumerator SpawnWaves()
+    {
+        while (true) // Infinite loop to continuously spawn waves
+        {
+            SpawnAliens();
+            yield return new WaitForSeconds(secondsBetweenWaves); // Wait for specified seconds before spawning the next wave
+            currentWaveNumberOfAliens *= 2; // Double the number of aliens for the next wave
+        }
     }
 
     void SpawnAliens()
     {
-        alienCount = numberOfAliens;
+        alienCount = currentWaveNumberOfAliens;
         UpdateAlienCountText();
 
-        for (int i = 0; i < numberOfAliens; i++)
+        for (int i = 0; i < currentWaveNumberOfAliens; i++)
         {
             Vector2 spawnPosition = GetRandomPositionAtEdge();  // zufällige Spawn-Position am Rand der Spielfläche
             Quaternion spawnRotation = GetRotationTowardsCenter(spawnPosition);  // Ausrichtung der Aliens Richtung Zentrum
@@ -50,7 +63,7 @@ public class AlienSpawner : MonoBehaviour
         {
             case 0: // Obere Kante
                 x = Random.Range(-spawnWidth / 2, spawnWidth / 2);
-                y = spawnHeight / 2 ;
+                y = spawnHeight / 2;
                 break;
             case 1: // Untere Kante
                 x = Random.Range(-spawnWidth / 2, spawnWidth / 2);
