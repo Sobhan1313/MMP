@@ -12,7 +12,7 @@ public class PlayerLaserController : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
 
-        StartCoroutine(DestroyAfterTime(10.0f));
+        StartCoroutine(DestroyAfterTime(5.0f));
     }
 
     void Update()
