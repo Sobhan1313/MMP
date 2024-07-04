@@ -21,6 +21,7 @@ public class Alien4Controller : MonoBehaviour
     private int health = 3;
     private float nextFireTime;
     private AlienSpawner alienSpawner;
+    private bool isDestroyed = false;
 
 
     void Start()
@@ -36,17 +37,20 @@ public class Alien4Controller : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(isDestroyed) return;
         MoveTowardsTarget();
         RotateTowardsTarget();
 
         // Berechne die Entfernung zum Zielobjekt
-        float distanceToTarget = Vector2.Distance(transform.position, targetFound.transform.position);
+        if(targetFound != null){
+            float distanceToTarget = Vector2.Distance(transform.position, targetFound.transform.position);
 
-        // Laser abfeuern, wenn der Mindestabstand erreicht ist
-        if (Time.time >= nextFireTime && distanceToTarget <= minFireDistance)
-        {
-            FireLaser();
-            nextFireTime = Time.time + fireRate;
+            // Laser abfeuern, wenn der Mindestabstand erreicht ist
+            if (Time.time >= nextFireTime && distanceToTarget <= minFireDistance)
+            {
+                FireLaser();
+                nextFireTime = Time.time + fireRate;
+            }
         }
     }
 
@@ -103,9 +107,10 @@ public class Alien4Controller : MonoBehaviour
             {
                 alienSpawner.AlienDestroyed();
             }
-            Instantiate(Explosion, transform.position, transform.rotation);
+            GameObject explosionInstance = Instantiate(Explosion, transform.position, transform.rotation);
+            isDestroyed = true;
             Destroy(gameObject);    //Alien wird bei Kollision zerstört
-            Destroy(Explosion);
+            Destroy(explosionInstance);
         }
     }
 

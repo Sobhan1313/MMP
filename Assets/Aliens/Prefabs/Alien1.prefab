@@ -248,4 +248,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   target: reticle
-  Explosion: {fileID: 1431195886088156019, guid: e0ba2ada2b0130c4e99641944873b5f1, type: 3}
+  explosion: {fileID: 1431195886088156019, guid: e0ba2ada2b0130c4e99641944873b5f1, type: 3}

@@ -13,6 +13,7 @@ public class Alien1Controller : MonoBehaviour
     private Animator animator;
     public GameObject Explosion;
     private AlienSpawner alienSpawner;
+     private bool isDestroyed = false;
 
 
     void Start()
@@ -28,6 +29,7 @@ public class Alien1Controller : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(isDestroyed) return;
         MoveTowardsTarget();
         RotateTowardsTarget();
     }
@@ -77,9 +79,10 @@ public class Alien1Controller : MonoBehaviour
         {
             alienSpawner.AlienDestroyed();
         }
-        Instantiate(Explosion, transform.position, transform.rotation);
+        GameObject explosionInstance = Instantiate(Explosion, transform.position, transform.rotation);
+        isDestroyed = true;
         Destroy(gameObject);    //Alien wird bei Kollision zerstört
-        Destroy(Explosion);
+        Destroy(explosionInstance);
     
     }
 }

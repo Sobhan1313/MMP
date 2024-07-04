@@ -83,7 +83,6 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         if ((collision.gameObject.CompareTag("Reticle")) && (collision.gameObject.CompareTag("Asteroid"))) return;
-        
         if (collision.gameObject.CompareTag("Alien") || collision.gameObject.CompareTag("Laser"))
         {
             TakeDamage(1);
@@ -103,9 +102,9 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Player is dead");
             isDestroyed = true;
-            Instantiate(Explosion, transform.position, transform.rotation);
+            GameObject explosionInstance = Instantiate(Explosion, transform.position, transform.rotation);
             Destroy(gameObject);
-            Destroy(Explosion);
+            Destroy(explosionInstance);
         }
     }
 
