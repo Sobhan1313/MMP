@@ -82,7 +82,7 @@ public class Alien2Controller : MonoBehaviour
             GameObject explosionInstance = Instantiate(Explosion, transform.position, transform.rotation);
             isDestroyed = true;
             Destroy(gameObject);    //Alien wird bei Kollision zerstört
-            Destroy(explosionInstance);
+            Destroy(explosionInstance, 1.0f);
         }
     }
 

@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
             isDestroyed = true;
             GameObject explosionInstance = Instantiate(Explosion, transform.position, transform.rotation);
             Destroy(gameObject);
-            Destroy(explosionInstance);
+            Destroy(explosionInstance, 1.0f);
         }
     }
 
