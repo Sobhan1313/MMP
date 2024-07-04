@@ -11,6 +11,7 @@ public class Alien1Controller : MonoBehaviour
     private GameObject targetFound; // Zielpunkt, auf den sich der Alien zubewegt
     private Rigidbody2D rb2d;
     private Animator animator;
+    public GameObject Explosion;
     private AlienSpawner alienSpawner;
 
 
@@ -76,7 +77,9 @@ public class Alien1Controller : MonoBehaviour
         {
             alienSpawner.AlienDestroyed();
         }
+        Instantiate(Explosion, transform.position, transform.rotation);
         Destroy(gameObject);    //Alien wird bei Kollision zerstört
+        Destroy(Explosion);
     
     }
 }

@@ -16,6 +16,7 @@ public class Alien4Controller : MonoBehaviour
     public float minFireDistance = 5.0f; // Mindestabstand zum Zielobjekt
     private Rigidbody2D rb2d;
     private Animator animator;
+    public GameObject Explosion;
     [SerializeField]
     private int health = 3;
     private float nextFireTime;
@@ -102,7 +103,9 @@ public class Alien4Controller : MonoBehaviour
             {
                 alienSpawner.AlienDestroyed();
             }
+            Instantiate(Explosion, transform.position, transform.rotation);
             Destroy(gameObject);    //Alien wird bei Kollision zerstört
+            Destroy(Explosion);
         }
     }
 

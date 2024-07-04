@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
     [SerializeField]
     private Animator animator;
+    public GameObject Explosion;
     private bool isDestroyed = false;
 
     private Vector2 minBounds;
@@ -102,7 +103,9 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Player is dead");
             isDestroyed = true;
+            Instantiate(Explosion, transform.position, transform.rotation);
             Destroy(gameObject);
+            Destroy(Explosion);
         }
     }
 
