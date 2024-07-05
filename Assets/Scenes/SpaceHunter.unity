@@ -928,7 +928,7 @@ GameObject:
   - component: {fileID: 531963000}
   - component: {fileID: 531962999}
   m_Layer: 0
-  m_Name: AlertManager
+  m_Name: Level Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -948,7 +948,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alertText: {fileID: 357138322}
   alertDuration: 5
-  alertInterval: 10
+  alertInterval: 55
 --- !u!4 &531963000
 Transform:
   m_ObjectHideFlags: 0
