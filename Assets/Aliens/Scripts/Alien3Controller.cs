@@ -13,25 +13,38 @@ public class Alien3Controller : MonoBehaviour
     [SerializeField]
     private float zigzagAmplitude; // Wie weit die Bewegung seitlich geht
     [SerializeField]
-    private int health = 2;
     private GameObject targetFound; // Zielpunkt, auf den sich der Alien zubewegt
     private Rigidbody2D rb2d;
     private Animator animator;
     public GameObject Explosion;
     private AlienSpawner alienSpawner;
-     private bool isDestroyed = false;
+    private bool isDestroyed = false;
+    [SerializeField] float maxHealth;
+    FloatingHealthBar3 healthbar;
+
+    private float health; 
    
 
 
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        healthbar = GetComponentInChildren<FloatingHealthBar3>();
+        health = maxHealth;
+        healthbar.UpdateHealthBar(health,maxHealth);
         animator = GetComponent<Animator>();
         alienSpawner = FindObjectOfType<AlienSpawner>();
         if (target != null)
     {
         targetFound = GameObject.Find(target); // Beispiel: Finde das GameObject mit dem Namen "Player"
     }
+    }
+     private void TakeDamage(float damageAmount){
+
+        health -= damageAmount;
+        healthbar.UpdateHealthBar(health,maxHealth);
+         
+
     }
 
     void FixedUpdate()
@@ -40,6 +53,8 @@ public class Alien3Controller : MonoBehaviour
         MoveTowardsTargetInZigZag();
         RotateTowardsTarget();
     }
+
+   
 
     void MoveTowardsTargetInZigZag()
     {
@@ -86,7 +101,7 @@ public class Alien3Controller : MonoBehaviour
         // Do nothing
         return;
     } else {
-        health--;
+        TakeDamage(1);
         Debug.Log("Alien collided with " + collision.gameObject.name);
         if (health <= 0) {
             rb2d.velocity = Vector2.zero;
