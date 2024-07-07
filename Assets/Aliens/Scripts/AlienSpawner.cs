@@ -1,0 +1,105 @@
+using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class AlienSpawner : MonoBehaviour
+{
+    public GameObject[] Aliens; // Prefab der Aliens, welche gespawnt werden
+    [SerializeField]
+    private int numberOfAliens; // Anfangsanzahl der Aliens
+    public Text alienCountText; // Text-Element zur Anzeige der Alien-Anzahl
+    private int alienCount;
+    private int currentWaveNumberOfAliens; // Anzahl der Aliens für die aktuelle Welle
+    [SerializeField]
+    private float secondsBetweenWaves; // Sekunden zwischen den Wellen
+
+    void Start()
+    {
+        currentWaveNumberOfAliens = numberOfAliens;
+        StartCoroutine(SpawnWaves());
+    }
+
+    IEnumerator SpawnWaves()
+    {
+        while (true) // Infinite loop to continuously spawn waves
+        {
+            SpawnAliens();
+            yield return new WaitForSeconds(secondsBetweenWaves); // Wait for specified seconds before spawning the next wave
+            currentWaveNumberOfAliens *= 2; // Double the number of aliens for the next wave
+        }
+    }
+
+    void SpawnAliens()
+    {
+        alienCount = currentWaveNumberOfAliens;
+        UpdateAlienCountText();
+
+        for (int i = 0; i < currentWaveNumberOfAliens; i++)
+        {
+            Vector2 spawnPosition = GetRandomPositionAtEdge();  // zufällige Spawn-Position am Rand der Spielfläche
+            Quaternion spawnRotation = GetRotationTowardsCenter(spawnPosition);  // Ausrichtung der Aliens Richtung Zentrum
+            // Wähle zufällig ein Alien-Prefab aus der Liste aus
+            GameObject selectedAlien = Aliens[Random.Range(0, Aliens.Length)];
+
+            // Instanziere das ausgewählte Alien-Prefab
+            Instantiate(selectedAlien, spawnPosition, spawnRotation);
+        }
+    }
+
+    Vector2 GetRandomPositionAtEdge()
+    {
+        float cameraHeight = Camera.main.orthographicSize * 2;
+        float scale = 50;
+        float spawnHeight = cameraHeight * scale;
+        float spawnWidth = spawnHeight * Camera.main.aspect;
+
+        float x = 0f;
+        float y = 0f;
+
+        // Zufällig eine der vier Kanten auswählen
+        int edge = Random.Range(0, 4);
+
+        switch (edge)
+        {
+            case 0: // Obere Kante
+                x = Random.Range(-spawnWidth / 2, spawnWidth / 2);
+                y = spawnHeight / 2;
+                break;
+            case 1: // Untere Kante
+                x = Random.Range(-spawnWidth / 2, spawnWidth / 2);
+                y = -spawnHeight / 2;
+                break;
+            case 2: // Linke Kante
+                x = -spawnWidth / 2;
+                y = Random.Range(-spawnHeight / 2, spawnHeight / 2);
+                break;
+            case 3: // Rechte Kante
+                x = spawnWidth / 2;
+                y = Random.Range(-spawnHeight / 2, spawnHeight / 2);
+                break;
+        }
+
+        return new Vector2(x, y);
+    }
+
+    Quaternion GetRotationTowardsCenter(Vector2 spawnPosition)
+    {
+        Vector2 centerPosition = Vector2.zero; // Annahme: Zentrum ist Punkt (0, 0) 
+
+        Vector2 direction = centerPosition - spawnPosition;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        return Quaternion.Euler(0, 0, angle);
+    }
+
+    public void AlienDestroyed()
+    {
+        alienCount--;
+        UpdateAlienCountText();
+    }
+
+    void UpdateAlienCountText()
+    {
+        alienCountText.text = "Aliens: " + alienCount;
+    }
+}
