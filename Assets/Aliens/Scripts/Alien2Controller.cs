@@ -12,21 +12,33 @@ public class Alien2Controller : MonoBehaviour
     private Rigidbody2D rb2d;
     private Animator animator;
     public GameObject Explosion;
-    [SerializeField]
-    private int health = 2;
+   
     private AlienSpawner alienSpawner;
     private bool isDestroyed = false;
 
+    [SerializeField] float maxHealth;
+    FloatingHealthBar2 healthbar;
+
+    private float health; 
 
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        healthbar = GetComponentInChildren<FloatingHealthBar2>();
+        health = maxHealth;
+        healthbar.UpdateHealthBar(health,maxHealth);
         animator = GetComponent<Animator>();
         alienSpawner = FindObjectOfType<AlienSpawner>();
-        if (target != null)
-    {
+        if (target != null){
         targetFound = GameObject.Find(target); // Beispiel: Finde das GameObject mit dem Namen "Player"
+        }
     }
+     private void TakeDamage(float damageAmount){
+
+        health -= damageAmount;
+        healthbar.UpdateHealthBar(health,maxHealth);
+         
+
     }
 
     void FixedUpdate()
@@ -71,7 +83,7 @@ public class Alien2Controller : MonoBehaviour
         // Do nothing
         return;
     } else {
-        health--;
+        TakeDamage(1);
         Debug.Log("Alien collided with " + collision.gameObject.name);
         if (health <= 0) {
             rb2d.velocity = Vector2.zero;

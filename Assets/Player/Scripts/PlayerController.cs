@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     private int maxHealth = 5;
     [SerializeField]
     private Text healthText;
+
+    public HealthBar healthBar;
     public GameObject PlayerLaser;
     private int currentHealth;
     private Rigidbody2D rb2d;
@@ -28,6 +30,8 @@ public class PlayerController : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+
         UpdateHealthUI();
         CalculateBounds();
         StartCoroutine(CheckBoundsAndDamage());
@@ -95,6 +99,8 @@ public class PlayerController : MonoBehaviour
         if (currentHealth > 0)
         {
             currentHealth -= damage;
+            healthBar.SetHealth(currentHealth);
+
             UpdateHealthUI();
         }
 

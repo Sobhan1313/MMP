@@ -15,10 +15,17 @@ public class Alien1Controller : MonoBehaviour
     private AlienSpawner alienSpawner;
      private bool isDestroyed = false;
 
+    [SerializeField] float maxHealth;
+    FloatingHealthbar healthbar;
+    private float health; 
+
 
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        healthbar = GetComponentInChildren<FloatingHealthbar>();
+        health = maxHealth;
+        healthbar.UpdateHealthBar(health,maxHealth);
         animator = GetComponent<Animator>();
         alienSpawner = FindObjectOfType<AlienSpawner>();
         if (target != null)
@@ -27,6 +34,13 @@ public class Alien1Controller : MonoBehaviour
     }
     }
 
+      private void TakeDamage(float damageAmount){
+
+        health -= damageAmount;
+        healthbar.UpdateHealthBar(health,maxHealth);
+   
+
+    }
     void FixedUpdate()
     {
         if(isDestroyed) return;
@@ -69,20 +83,24 @@ public class Alien1Controller : MonoBehaviour
     {
         // Do nothing
         return;
+    }else {
+
+        TakeDamage(1);
+        Debug.Log("Alien collided with " + collision.gameObject.name);
+        if (health <= 0) {
+            rb2d.velocity = Vector2.zero;
+            if (alienSpawner != null && !collision.gameObject.CompareTag("Reticle"))
+            {
+                alienSpawner.AlienDestroyed();
+            }
+            GameObject explosionInstance = Instantiate(Explosion, transform.position, transform.rotation);
+            isDestroyed = true;
+            Destroy(gameObject);    //Alien wird bei Kollision zerstört
+            Destroy(explosionInstance, 1.0f);
+        }
     }
 
-        Debug.Log("Alien collided with " + collision.gameObject.name);
 
-        rb2d.velocity = Vector2.zero;
-
-        if (alienSpawner != null && !collision.gameObject.CompareTag("Reticle"))
-        {
-            alienSpawner.AlienDestroyed();
-        }
-        GameObject explosionInstance = Instantiate(Explosion, transform.position, transform.rotation);
-        isDestroyed = true;
-        Destroy(gameObject);    //Alien wird bei Kollision zerstört
-        Destroy(explosionInstance, 1.0f);
     
     }
 }
