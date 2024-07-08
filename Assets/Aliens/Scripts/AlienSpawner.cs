@@ -1,13 +1,15 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class AlienSpawner : MonoBehaviour
 {
     public GameObject[] Aliens; // Prefab der Aliens, welche gespawnt werden
     [SerializeField]
     private int numberOfAliens; // Anfangsanzahl der Aliens
-    public Text alienCountText; // Text-Element zur Anzeige der Alien-Anzahl
+    [SerializeField] 
+    public TextMeshProUGUI alienCountText; // Text-Element zur Anzeige der Alien-Anzahl
     private int alienCount;
     private int currentWaveNumberOfAliens; // Anzahl der Aliens für die aktuelle Welle
     [SerializeField]
