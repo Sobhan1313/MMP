@@ -20,41 +20,42 @@ public class Alien3Controller : MonoBehaviour
     private AlienSpawner alienSpawner;
     private bool isDestroyed = false;
     [SerializeField] float maxHealth;
-    FloatingHealthBar3 healthbar;
+    FloatingHealthbar healthbar;
 
-    private float health; 
-   
+    private float health;
+
 
 
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        healthbar = GetComponentInChildren<FloatingHealthBar3>();
+        healthbar = GetComponentInChildren<FloatingHealthbar>();
         health = maxHealth;
-        healthbar.UpdateHealthBar(health,maxHealth);
+        healthbar.UpdateHealthBar(health, maxHealth);
         animator = GetComponent<Animator>();
         alienSpawner = FindObjectOfType<AlienSpawner>();
         if (target != null)
+        {
+            targetFound = GameObject.Find(target); // Beispiel: Finde das GameObject mit dem Namen "Player"
+        }
+    }
+    private void TakeDamage(float damageAmount)
     {
-        targetFound = GameObject.Find(target); // Beispiel: Finde das GameObject mit dem Namen "Player"
-    }
-    }
-     private void TakeDamage(float damageAmount){
 
         health -= damageAmount;
-        healthbar.UpdateHealthBar(health,maxHealth);
-         
+        healthbar.UpdateHealthBar(health, maxHealth);
+
 
     }
 
     void FixedUpdate()
     {
-        if(isDestroyed) return;
+        if (isDestroyed) return;
         MoveTowardsTargetInZigZag();
         RotateTowardsTarget();
     }
 
-   
+
 
     void MoveTowardsTargetInZigZag()
     {
@@ -74,12 +75,12 @@ public class Alien3Controller : MonoBehaviour
 
             rb2d.velocity = combinedDirection * speed;
 
-        
+
         }
         else
         {
             rb2d.velocity = Vector2.zero;
-          
+
         }
     }
 
@@ -96,26 +97,38 @@ public class Alien3Controller : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Alien"))
-    {
-        // Do nothing
-        return;
-    } else {
-        TakeDamage(1);
-        Debug.Log("Alien collided with " + collision.gameObject.name);
-        if (health <= 0) {
-            rb2d.velocity = Vector2.zero;
-            if (alienSpawner != null && !collision.gameObject.CompareTag("Reticle"))
-            {
-                alienSpawner.AlienDestroyed();
-            }
-            GameObject explosionInstance = Instantiate(Explosion, transform.position, transform.rotation);
-            isDestroyed = true;
-            Destroy(gameObject);    //Alien wird bei Kollision zerstört
-            Destroy(explosionInstance, 1.0f);
-        }
-    }
 
-    
+        if (collision.gameObject.CompareTag("Alien"))
+        {
+            // Do nothing
+            return;
+        }
+        else
+        {
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                GameObject explosionInstance = Instantiate(Explosion, transform.position, transform.rotation);
+                isDestroyed = true;
+                Destroy(gameObject);    //Alien wird bei Kollision zerstört
+                Destroy(explosionInstance, 1.0f);
+            }
+            else
+            {
+                TakeDamage(1);
+                Debug.Log("Alien collided with " + collision.gameObject.name);
+                if (health <= 0)
+                {
+                    rb2d.velocity = Vector2.zero;
+                    if (alienSpawner != null && !collision.gameObject.CompareTag("Reticle"))
+                    {
+                        alienSpawner.AlienDestroyed();
+                    }
+                    GameObject explosionInstance = Instantiate(Explosion, transform.position, transform.rotation);
+                    isDestroyed = true;
+                    Destroy(gameObject);    //Alien wird bei Kollision zerstört
+                    Destroy(explosionInstance, 1.0f);
+                }
+            }
+        }
     }
 }

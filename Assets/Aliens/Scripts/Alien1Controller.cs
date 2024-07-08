@@ -84,19 +84,25 @@ public class Alien1Controller : MonoBehaviour
         // Do nothing
         return;
     }else {
-
-        TakeDamage(1);
-        Debug.Log("Alien collided with " + collision.gameObject.name);
-        if (health <= 0) {
-            rb2d.velocity = Vector2.zero;
-            if (alienSpawner != null && !collision.gameObject.CompareTag("Reticle"))
-            {
-                alienSpawner.AlienDestroyed();
-            }
+        if (collision.gameObject.CompareTag("Player")) {
             GameObject explosionInstance = Instantiate(Explosion, transform.position, transform.rotation);
             isDestroyed = true;
             Destroy(gameObject);    //Alien wird bei Kollision zerstört
             Destroy(explosionInstance, 1.0f);
+        } else {
+            TakeDamage(1);
+            Debug.Log("Alien collided with " + collision.gameObject.name);
+            if (health <= 0) {
+                rb2d.velocity = Vector2.zero;
+                if (alienSpawner != null && !collision.gameObject.CompareTag("Reticle"))
+                {
+                    alienSpawner.AlienDestroyed();
+                }
+                GameObject explosionInstance = Instantiate(Explosion, transform.position, transform.rotation);
+                isDestroyed = true;
+                Destroy(gameObject);    //Alien wird bei Kollision zerstört
+                Destroy(explosionInstance, 1.0f);
+            }
         }
     }
 
