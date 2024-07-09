@@ -1,15 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private float speed;
+
     [SerializeField]
     private bool enableKeyboardControl;
+
     [SerializeField]
     private int maxHealth = 5;
+
     [SerializeField]
     private Text healthText;
 
@@ -17,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public GameObject PlayerLaser;
     private int currentHealth;
     private Rigidbody2D rb2d;
+
     [SerializeField]
     private Animator animator;
     public GameObject Explosion;
@@ -39,7 +43,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isDestroyed) return;
+        if (isDestroyed)
+            return;
         if (enableKeyboardControl)
         {
             float moveHorizontal = Input.GetAxis("Horizontal");
@@ -58,7 +63,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (isDestroyed) return;
+        if (isDestroyed)
+            return;
         Vector3 mouseScreenPosition = Input.mousePosition;
         Ray ray = Camera.main.ScreenPointToRay(mouseScreenPosition);
         Plane xyPlane = new Plane(Vector3.forward, Vector3.zero);
@@ -81,13 +87,22 @@ public class PlayerController : MonoBehaviour
     {
         // Verschiebungsdistanz
         float offsetDistance = 2.0f;
-        Instantiate(PlayerLaser, transform.position + (transform.right * offsetDistance), transform.rotation);
+        Instantiate(
+            PlayerLaser,
+            transform.position + (transform.right * offsetDistance),
+            transform.rotation
+        );
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if ((collision.gameObject.CompareTag("Reticle")) && (collision.gameObject.CompareTag("Asteroid"))) return;
-        if (collision.gameObject.CompareTag("Alien") || collision.gameObject.CompareTag("Laser"))
+        if (collision.gameObject.CompareTag("Reticle"))
+            return;
+        if (
+            collision.gameObject.CompareTag("Alien")
+            || collision.gameObject.CompareTag("Laser")
+            || (collision.gameObject.CompareTag("Asteroid"))
+        )
         {
             TakeDamage(1);
             Debug.Log("Ship go boom");
@@ -108,7 +123,11 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Player is dead");
             isDestroyed = true;
-            GameObject explosionInstance = Instantiate(Explosion, transform.position, transform.rotation);
+            GameObject explosionInstance = Instantiate(
+                Explosion,
+                transform.position,
+                transform.rotation
+            );
             Destroy(gameObject);
             Destroy(explosionInstance, 1.0f);
         }
@@ -149,7 +168,9 @@ public class PlayerController : MonoBehaviour
 
     bool IsWithinBounds(Vector2 position)
     {
-        return position.x >= minBounds.x && position.x <= maxBounds.x &&
-               position.y >= minBounds.y && position.y <= maxBounds.y;
+        return position.x >= minBounds.x
+            && position.x <= maxBounds.x
+            && position.y >= minBounds.y
+            && position.y <= maxBounds.y;
     }
 }
