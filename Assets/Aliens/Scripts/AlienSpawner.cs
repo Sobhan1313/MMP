@@ -8,16 +8,16 @@ public class AlienSpawner : MonoBehaviour
     public GameObject[] Aliens; // Prefab der Aliens, welche gespawnt werden
     [SerializeField]
     private int numberOfAliens; // Anfangsanzahl der Aliens
+    [SerializeField]
+    private int AlienAdditionRate = 2; // Anzahl der addierten Aliens pro Runde
     [SerializeField] 
     public TextMeshProUGUI alienCountText; // Text-Element zur Anzeige der Alien-Anzahl
     private int alienCount;
-    private int currentWaveNumberOfAliens; // Anzahl der Aliens für die aktuelle Welle
     [SerializeField]
     private float secondsBetweenWaves; // Sekunden zwischen den Wellen
 
     void Start()
     {
-        currentWaveNumberOfAliens = numberOfAliens;
         StartCoroutine(SpawnWaves());
     }
 
@@ -27,16 +27,16 @@ public class AlienSpawner : MonoBehaviour
         {
             SpawnAliens();
             yield return new WaitForSeconds(secondsBetweenWaves); // Wait for specified seconds before spawning the next wave
-            currentWaveNumberOfAliens *= 2; // Double the number of aliens for the next wave
+            numberOfAliens += AlienAdditionRate; // add x aliens for the next spawn wave
         }
     }
 
     void SpawnAliens()
     {
-        alienCount = currentWaveNumberOfAliens;
+        alienCount += numberOfAliens;
         UpdateAlienCountText();
 
-        for (int i = 0; i < currentWaveNumberOfAliens; i++)
+        for (int i = 0; i < numberOfAliens; i++)
         {
             Vector2 spawnPosition = GetRandomPositionAtEdge();  // zufällige Spawn-Position am Rand der Spielfläche
             Quaternion spawnRotation = GetRotationTowardsCenter(spawnPosition);  // Ausrichtung der Aliens Richtung Zentrum
