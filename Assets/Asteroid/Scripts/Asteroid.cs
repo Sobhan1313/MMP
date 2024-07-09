@@ -16,6 +16,8 @@ public class AsteroidController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D c2D)
     {
+         if (c2D.gameObject.CompareTag("Reticle") &&  c2D.gameObject.CompareTag("Asteroid"))
+            return;
         Debug.Log("Asteroid go boom");
         Destroy(this.gameObject);
     }

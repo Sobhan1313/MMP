@@ -12,7 +12,7 @@ public class PlayerLaserController : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
 
-        StartCoroutine(DestroyAfterTime(5.0f));
+        StartCoroutine(DestroyAfterTime(2.0f));
     }
 
     void Update()
@@ -22,6 +22,9 @@ public class PlayerLaserController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+
+         if (collision.gameObject.CompareTag("Player"))
+            return;
         
         // Laser zerstören nach Kollision
         rb2d.velocity = Vector2.zero;

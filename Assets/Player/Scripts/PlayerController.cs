@@ -5,10 +5,10 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    private float speed;
+    private float speed = 5f;
 
     [SerializeField]
-    private bool enableKeyboardControl;
+    private bool enableKeyboardControl = true;
 
     [SerializeField]
     private int maxHealth = 5;
@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour
     private Vector2 minBounds;
     private Vector2 maxBounds;
     private float damageInterval = 1f; // Damage interval in seconds
+
+    private float maxPlayerSpeed = 14f; // Maximal player speed
+    private float laserSpeed = 15f; // Laser speed
 
     void Start()
     {
@@ -85,13 +88,18 @@ public class PlayerController : MonoBehaviour
 
     void FireLaser()
     {
-        // Verschiebungsdistanz
         float offsetDistance = 2.0f;
-        Instantiate(
+        GameObject laserInstance = Instantiate(
             PlayerLaser,
             transform.position + (transform.right * offsetDistance),
             transform.rotation
         );
+
+        Rigidbody2D laserRb = laserInstance.GetComponent<Rigidbody2D>();
+        if (laserRb != null)
+        {
+            laserRb.velocity = transform.right * laserSpeed;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -172,5 +180,28 @@ public class PlayerController : MonoBehaviour
             && position.x <= maxBounds.x
             && position.y >= minBounds.y
             && position.y <= maxBounds.y;
+    }
+
+    // Methods to handle upgrades
+    public void UpgradeSpeed(float amount)
+    {
+        speed = Mathf.Min(speed + amount, maxPlayerSpeed);
+        Debug.Log("Speed upgraded: " + speed);
+    }
+
+    public void UpgradeHealth(int amount)
+    {
+        maxHealth += amount;
+        currentHealth = maxHealth; // Reset to full health after upgrading
+        healthBar.SetMaxHealth(maxHealth);
+        healthBar.SetHealth(currentHealth);
+        UpdateHealthUI();
+        Debug.Log("Health upgraded: " + maxHealth);
+    }
+
+    public void UpgradeLaser(float amount)
+    {
+        // Implement the laser upgrade logic
+        Debug.Log("Laser upgraded by: " + amount);
     }
 }
