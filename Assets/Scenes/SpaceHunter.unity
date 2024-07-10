@@ -1683,7 +1683,6 @@ RectTransform:
   - {fileID: 1862496311}
   - {fileID: 1309977197}
   - {fileID: 408837176}
-  - {fileID: 215322085}
   m_Father: {fileID: 598239446}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1741,7 +1740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba8b46bc64336104e9c86c119fb69cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointsText: {fileID: 0}
+  pointsText: {fileID: 1309977198}
 --- !u!1 &598239442
 GameObject:
   m_ObjectHideFlags: 0
@@ -4281,7 +4280,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 215322085}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -6022,6 +6021,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 959976594}
     - target: {fileID: 2163794909889193060, guid: 31f6bb0843f0c4e4eba65662dc262f1f, type: 3}
+      propertyPath: gameOver
+      value: 
+      objectReference: {fileID: 594142777}
+    - target: {fileID: 2163794909889193060, guid: 31f6bb0843f0c4e4eba65662dc262f1f, type: 3}
       propertyPath: explosion
       value: 
       objectReference: {fileID: 1431195886088156019, guid: e0ba2ada2b0130c4e99641944873b5f1, type: 3}
@@ -6081,3 +6084,4 @@ SceneRoots:
   - {fileID: 598239446}
   - {fileID: 2026680744}
   - {fileID: 158942985}
+  - {fileID: 1447419207}

@@ -140,7 +140,7 @@ public class PlayerController : MonoBehaviour
             );
             Destroy(gameObject);
             Destroy(explosionInstance, 1.0f);
-            gameOver.Setup(999);
+            gameOver.Setup(ScoreManager.highScore);
         }
     }
 

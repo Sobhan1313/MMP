@@ -8,7 +8,7 @@ public class ScoreManager : MonoBehaviour
     public TextMeshProUGUI highScoreText; // UI-Element zur Anzeige des HighScores
 
     private int currentScore;
-    private int highScore;
+    public static int highScore;
 
     void Awake()
     {
