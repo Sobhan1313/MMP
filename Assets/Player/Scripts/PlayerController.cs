@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
     private float maxPlayerSpeed = 14f; // Maximal player speed
     private float laserSpeed = 15f; // Laser speed
 
+    public GameOverScreen gameOver;
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -138,6 +140,7 @@ public class PlayerController : MonoBehaviour
             );
             Destroy(gameObject);
             Destroy(explosionInstance, 1.0f);
+            gameOver.Setup(999);
         }
     }
 
