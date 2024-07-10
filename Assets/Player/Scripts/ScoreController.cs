@@ -7,7 +7,7 @@ public class ScoreManager : MonoBehaviour
     public TextMeshProUGUI scoreText; // UI-Element zur Anzeige der aktuellen Punkte
     public TextMeshProUGUI highScoreText; // UI-Element zur Anzeige des HighScores
 
-    private int currentScore;
+    public static int currentScore;
     public static int highScore;
 
     void Awake()
@@ -41,7 +41,7 @@ public class ScoreManager : MonoBehaviour
 
     private void UpdateScoreText()
     {
-        scoreText.text = "EP: " + currentScore.ToString();
+        scoreText.text = "XP: " + currentScore.ToString();
     }
 
     private void UpdateHighScoreText()
