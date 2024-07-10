@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -9,10 +10,12 @@ public class AlienSpawner : MonoBehaviour
     [SerializeField]
     private int numberOfAliens; // Anfangsanzahl der Aliens
     [SerializeField]
-    private int AlienAdditionRate = 2; // Anzahl der addierten Aliens pro Runde
+    private int AlienAdditionRate = 1; // Anzahl der addierten Aliens pro Runde
     [SerializeField] 
     public TextMeshProUGUI alienCountText; // Text-Element zur Anzeige der Alien-Anzahl
     private int alienCount;
+    private int waveNumber = 1;
+    private List<GameObject> selectedAliens = new List<GameObject>(); // Liste für die ausgewählten Aliens
     [SerializeField]
     private float secondsBetweenWaves; // Sekunden zwischen den Wellen
 
@@ -28,25 +31,59 @@ public class AlienSpawner : MonoBehaviour
             SpawnAliens();
             yield return new WaitForSeconds(secondsBetweenWaves); // Wait for specified seconds before spawning the next wave
             numberOfAliens += AlienAdditionRate; // add x aliens for the next spawn wave
+            waveNumber++;
+        }
+    }
+
+    void UpdateSelectedAliens()
+    {
+        selectedAliens.Clear(); // Leert die Liste
+
+        switch (waveNumber)
+        {
+            case 1:
+                selectedAliens.Add(Aliens[0]);
+                break;
+            case 2:
+                selectedAliens.Add(Aliens[0]);
+                selectedAliens.Add(Aliens[1]);
+                break;
+            case 3:
+                selectedAliens.Add(Aliens[0]);
+                selectedAliens.Add(Aliens[2]);
+                break;
+            case 4:
+                selectedAliens.Add(Aliens[0]);
+                selectedAliens.Add(Aliens[3]);
+                break;
+            default:
+                selectedAliens.Add(Aliens[0]);
+                selectedAliens.Add(Aliens[1]);
+                selectedAliens.Add(Aliens[2]);
+                selectedAliens.Add(Aliens[3]); 
+                break;
         }
     }
 
     void SpawnAliens()
     {
-        alienCount += numberOfAliens;
-        UpdateAlienCountText();
+        UpdateSelectedAliens(); // Aktualisiert die Liste der ausgewählten Aliens
 
         for (int i = 0; i < numberOfAliens; i++)
-        {
-            Vector2 spawnPosition = GetRandomPositionAtEdge();  // zufällige Spawn-Position am Rand der Spielfläche
-            Quaternion spawnRotation = GetRotationTowardsCenter(spawnPosition);  // Ausrichtung der Aliens Richtung Zentrum
-            // Wähle zufällig ein Alien-Prefab aus der Liste aus
-            GameObject selectedAlien = Aliens[Random.Range(0, Aliens.Length)];
+            {
+                Vector2 spawnPosition = GetRandomPositionAtEdge();  // zufällige Spawn-Position am Rand der Spielfläche
+                Quaternion spawnRotation = GetRotationTowardsCenter(spawnPosition);  // Ausrichtung der Aliens Richtung Zentrum
+              
+                GameObject selectedAlien = selectedAliens[Random.Range(0, selectedAliens.Count)];                // Wähle zufällig ein Alien-Prefab aus der Liste der für die jeweilige Runde ausgewählten Aliens aus
+                                 
+                Instantiate(selectedAlien, spawnPosition, spawnRotation);       // Instanziere das ausgewählte Alien-Prefab
+                alienCount++;
+            }
+        UpdateAlienCountText();
+               
+     }
 
-            // Instanziere das ausgewählte Alien-Prefab
-            Instantiate(selectedAlien, spawnPosition, spawnRotation);
-        }
-    }
+    
 
     Vector2 GetRandomPositionAtEdge()
     {
