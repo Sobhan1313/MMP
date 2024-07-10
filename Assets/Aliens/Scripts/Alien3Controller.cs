@@ -19,7 +19,10 @@ public class Alien3Controller : MonoBehaviour
     public GameObject Explosion;
     private AlienSpawner alienSpawner;
     private bool isDestroyed = false;
-    [SerializeField] float maxHealth;
+    [SerializeField] 
+    float maxHealth;
+    [SerializeField]
+    private int points = 2; // Punkte die bei Zerstörung dieses Aliens vergeben werden
     FloatingHealthbar healthbar;
 
     private float health;
@@ -108,8 +111,17 @@ public class Alien3Controller : MonoBehaviour
             if (collision.gameObject.CompareTag("Player"))
             {
                 GameObject explosionInstance = Instantiate(Explosion, transform.position, transform.rotation);
+                rb2d.velocity = Vector2.zero;
+                if (alienSpawner != null && !collision.gameObject.CompareTag("Reticle"))
+                {
+                    alienSpawner.AlienDestroyed();
+                }
                 isDestroyed = true;
                 Destroy(gameObject);    //Alien wird bei Kollision zerstört
+                if (ScoreManager.instance != null)
+                {
+                    ScoreManager.instance.AddPoints(points);
+                }
                 Destroy(explosionInstance, 1.0f);
             }
             else
@@ -126,6 +138,10 @@ public class Alien3Controller : MonoBehaviour
                     GameObject explosionInstance = Instantiate(Explosion, transform.position, transform.rotation);
                     isDestroyed = true;
                     Destroy(gameObject);    //Alien wird bei Kollision zerstört
+                    if (ScoreManager.instance != null)
+                    {
+                        ScoreManager.instance.AddPoints(points);
+                    }
                     Destroy(explosionInstance, 1.0f);
                 }
             }
