@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Collision : MonoBehaviour
 {
+
+    public GameOverScreen gameOver;
     private AlienSpawner alienSpawner;
 
     void Start()
@@ -17,6 +19,7 @@ public class Collision : MonoBehaviour
         {
             Destroy(other.gameObject);
             alienSpawner.AlienDestroyed();
+            gameOver.Setup(ScoreManager.highScore);
         }
     }
 }
