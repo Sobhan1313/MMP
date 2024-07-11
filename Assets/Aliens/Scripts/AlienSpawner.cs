@@ -43,7 +43,6 @@ public class AlienSpawner : MonoBehaviour
         {
             case 1:
                 selectedAliens.Add(Aliens[0]);
-                selectedAliens.Add(Aliens[3]);
                 break;
             case 2:
                 selectedAliens.Add(Aliens[0]);
