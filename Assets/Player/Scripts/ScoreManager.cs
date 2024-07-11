@@ -4,8 +4,8 @@ using TMPro;
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
-    public TextMeshProUGUI scoreText; // UI-Element zur Anzeige der aktuellen Punkte
-    public TextMeshProUGUI highScoreText; // UI-Element zur Anzeige des HighScores
+    public TextMeshProUGUI scoreText; // UI-Text zur Anzeige der aktuellen Punkte
+    public TextMeshProUGUI highScoreText; // UI-Text zur Anzeige des HighScores
 
     public static int currentScore;
     public static int highScore;
@@ -16,7 +16,6 @@ public class ScoreManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);  //Bei Szenenwechsel nicht löschen!
         }
         else
         {
