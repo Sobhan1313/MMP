@@ -15,11 +15,13 @@ public class UpgradeManager : MonoBehaviour
     public Button speedButton; // Reference to the Speed Button
     public Button laserButton; // Reference to the Laser Button
     public Button healthButton; // Reference to the Health Button
-
+    [SerializeField]
     private int speedLevel = 1;
     private int laserLevel = 1;
     private int healthLevel = 1;
     private int maxLevel = 20; // Maximum upgrade level
+    [SerializeField]
+    private int upgradeCost = 5; // Cost in XP for each upgrade
 
     private PlayerController playerController;
 
@@ -44,55 +46,95 @@ public class UpgradeManager : MonoBehaviour
 
     void UpdateUI()
     {
-        speedText.text = "Speed Level: " + speedLevel;
-        laserText.text = "Laser Level: " + laserLevel;
-        healthText.text = "Health Level: " + healthLevel;
+        // Update the button texts with current levels
+        if (speedLevel < maxLevel)
+        {
+            speedText.text = "Speed Level: " + speedLevel;
+        }
+        else
+        {
+            speedText.text = "";
+            speedMaxLevelText.gameObject.SetActive(true);
+            speedButton.interactable = false; // Deactivate button
+        }
 
-        // Show max level text if any level reaches maxLevel
-        speedMaxLevelText.gameObject.SetActive(speedLevel >= maxLevel);
-        laserMaxLevelText.gameObject.SetActive(laserLevel >= maxLevel);
-        healthMaxLevelText.gameObject.SetActive(healthLevel >= maxLevel);
+        if (laserLevel < maxLevel)
+        {
+            laserText.text = "Laser Level: " + laserLevel;
+        }
+        else
+        {
+            laserText.text = "";
+            laserMaxLevelText.gameObject.SetActive(true);
+            laserButton.interactable = false; // Deactivate button
+        }
+
+        if (healthLevel < maxLevel)
+        {
+            healthText.text = "Health Level: " + healthLevel;
+        }
+        else
+        {
+            healthText.text = "";
+            healthMaxLevelText.gameObject.SetActive(true);
+            healthButton.interactable = false; // Deactivate button
+        }
     }
 
     void UpgradeSpeed()
     {
-        if (speedLevel < maxLevel)
+        if (speedLevel < maxLevel && ScoreManager.currentScore >= upgradeCost)
         {
             speedLevel++;
-            UpdateUI();
+            ScoreManager.instance.AddPoints(-upgradeCost); // Deduct XP
             playerController.UpgradeSpeed(0.5f); // Increase speed by 0.5
+            UpdateUI();
+        }
+        else if (speedLevel >= maxLevel)
+        {
+            Debug.Log("Speed is at max level");
         }
         else
         {
-            Debug.Log("Speed is at max level");
+            Debug.Log("Not enough XP to upgrade speed");
         }
     }
 
     void UpgradeLaser()
     {
-        if (laserLevel < maxLevel)
+        if (laserLevel < maxLevel && ScoreManager.currentScore >= upgradeCost)
         {
             laserLevel++;
-            UpdateUI();
+            ScoreManager.instance.AddPoints(-upgradeCost); // Deduct XP
             playerController.UpgradeLaser(0.5f); // Increase laser speed by 0.5
+            UpdateUI();
+        }
+        else if (laserLevel >= maxLevel)
+        {
+            Debug.Log("Laser is at max level");
         }
         else
         {
-            Debug.Log("Laser is at max level");
+            Debug.Log("Not enough XP to upgrade laser");
         }
     }
 
     void UpgradeHealth()
     {
-        if (healthLevel < maxLevel)
+        if (healthLevel < maxLevel && ScoreManager.currentScore >= upgradeCost)
         {
             healthLevel++;
-            UpdateUI();
+            ScoreManager.instance.AddPoints(-upgradeCost); // Deduct XP
             playerController.UpgradeHealth(1); // Increase health by 1
+            UpdateUI();
+        }
+        else if (healthLevel >= maxLevel)
+        {
+            Debug.Log("Health is at max level");
         }
         else
         {
-            Debug.Log("Health is at max level");
+            Debug.Log("Not enough XP to upgrade health");
         }
     }
 }
