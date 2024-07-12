@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Reticle"))
+        if (collision.gameObject.CompareTag("Reticle") || collision.gameObject.CompareTag("Laser") )
             return;
         if (
             collision.gameObject.CompareTag("Alien")

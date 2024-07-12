@@ -5849,8 +5849,7 @@ MonoBehaviour:
   speedButton: {fileID: 1003189606}
   laserButton: {fileID: 1241273262}
   healthButton: {fileID: 59556505}
-  speedLevel: 1
-  upgradeCost: 0
+  upgradeCost: 2
 --- !u!4 &2026680744
 Transform:
   m_ObjectHideFlags: 0
@@ -6139,6 +6138,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2163794909889193060, guid: 31f6bb0843f0c4e4eba65662dc262f1f, type: 3}
+      propertyPath: speed
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2163794909889193060, guid: 31f6bb0843f0c4e4eba65662dc262f1f, type: 3}
       propertyPath: gameOver
       value: 
       objectReference: {fileID: 594142777}
@@ -6146,6 +6149,10 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1235053095}
+    - target: {fileID: 7004355990368876659, guid: 31f6bb0843f0c4e4eba65662dc262f1f, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 7004355990368876659, guid: 31f6bb0843f0c4e4eba65662dc262f1f, type: 3}
       propertyPath: m_Name
       value: Player

@@ -15,13 +15,13 @@ public class UpgradeManager : MonoBehaviour
     public Button speedButton; // Reference to the Speed Button
     public Button laserButton; // Reference to the Laser Button
     public Button healthButton; // Reference to the Health Button
-    [SerializeField]
+    
     private int speedLevel = 1;
     private int laserLevel = 1;
     private int healthLevel = 1;
     private int maxLevel = 20; // Maximum upgrade level
     [SerializeField]
-    private int upgradeCost = 5; // Cost in XP for each upgrade
+    private int upgradeCost; // Cost in XP for each upgrade
 
     private PlayerController playerController;
 
