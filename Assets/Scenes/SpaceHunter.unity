@@ -2076,6 +2076,11 @@ Transform:
   - {fileID: 1676748504}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &647796595 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7004355990368876659, guid: 31f6bb0843f0c4e4eba65662dc262f1f, type: 3}
+  m_PrefabInstance: {fileID: 752541549798981922}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &660522474
 GameObject:
   m_ObjectHideFlags: 0
@@ -3898,6 +3903,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOver: {fileID: 594142777}
+  healthBar: {fileID: 1235053093}
+  player: {fileID: 647796595}
 --- !u!1 &1235053093
 GameObject:
   m_ObjectHideFlags: 0
@@ -6139,7 +6146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2163794909889193060, guid: 31f6bb0843f0c4e4eba65662dc262f1f, type: 3}
       propertyPath: speed
-      value: 25
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2163794909889193060, guid: 31f6bb0843f0c4e4eba65662dc262f1f, type: 3}
       propertyPath: gameOver

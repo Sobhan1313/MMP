@@ -23,4 +23,8 @@ public class HealthBar : MonoBehaviour
     {
         
     }
+
+    public void Destroy() {
+        Destroy(this.gameObject);
+    }
 }
