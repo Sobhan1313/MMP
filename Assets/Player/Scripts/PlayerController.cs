@@ -141,6 +141,7 @@ public class PlayerController : MonoBehaviour
             Destroy(gameObject);
             Destroy(explosionInstance, 1.0f);
             gameOver.Setup(ScoreManager.highScore);
+            Time.timeScale = 0f;
         }
     }
 
