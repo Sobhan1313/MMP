@@ -20,6 +20,7 @@ public class Collision : MonoBehaviour
             Destroy(other.gameObject);
             alienSpawner.AlienDestroyed();
             gameOver.Setup(ScoreManager.highScore);
+            Time.timeScale = 0f;
         }
     }
 }
