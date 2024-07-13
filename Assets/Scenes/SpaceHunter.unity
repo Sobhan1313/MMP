@@ -6252,7 +6252,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2163794909889193060, guid: 31f6bb0843f0c4e4eba65662dc262f1f, type: 3}
       propertyPath: speed
-      value: 20
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2163794909889193060, guid: 31f6bb0843f0c4e4eba65662dc262f1f, type: 3}
       propertyPath: gameOver

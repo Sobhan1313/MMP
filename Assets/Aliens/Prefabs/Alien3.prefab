@@ -244,7 +244,7 @@ MonoBehaviour:
   zigzagAmplitude: 2
   targetFound: {fileID: 0}
   Explosion: {fileID: 1431195886088156019, guid: e0ba2ada2b0130c4e99641944873b5f1, type: 3}
-  maxHealth: 3
+  maxHealth: 5
   points: 2
 --- !u!1 &3805184954934426054
 GameObject:
