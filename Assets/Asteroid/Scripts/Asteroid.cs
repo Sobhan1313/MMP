@@ -11,6 +11,7 @@ public class Asteroid : MonoBehaviour
     public Sprite[] sprites;
     public Spawner spawner;
 
+    public GameObject Explosion;
 
 
     void Awake()
@@ -41,6 +42,12 @@ public class Asteroid : MonoBehaviour
         
         if (collision.gameObject.CompareTag("Laser")|| collision.gameObject.CompareTag("Player")){
             
+            GameObject explosionInstance = Instantiate(
+                Explosion,
+                transform.position,
+                transform.rotation
+            );
+            Destroy(explosionInstance, 1.0f);
             Destroy(this.gameObject);
             spawner.Spawn();
             Debug.Log("from Asteroid ");
