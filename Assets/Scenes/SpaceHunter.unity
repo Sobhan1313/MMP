@@ -1827,7 +1827,7 @@ GameObject:
   - component: {fileID: 598239444}
   - component: {fileID: 598239443}
   m_Layer: 5
-  m_Name: Upgrade Canvas
+  m_Name: UI Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2913,7 +2913,7 @@ GameObject:
   - component: {fileID: 858263910}
   - component: {fileID: 858263914}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6285,7 +6285,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2788238809123166884, guid: ba7ebd1b00ec84e9f94dbd88bec037b1, type: 3}
       propertyPath: m_Name
-      value: Spawner
+      value: AsteroidSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 8329798010444093926, guid: ba7ebd1b00ec84e9f94dbd88bec037b1, type: 3}
       propertyPath: m_LocalPosition.x
