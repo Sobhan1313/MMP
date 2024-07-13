@@ -23,7 +23,7 @@ public class Collision : MonoBehaviour
             alienSpawner.AlienDestroyed();
             Destroy(player);
             Destroy(healthBar);
-            gameOver.Setup(ScoreManager.highScore);
+            gameOver.Setup(ScoreManager.currentScore, ScoreManager.highScore, "An alien has reached the portal.");
             Time.timeScale = 0f;
         }
     }

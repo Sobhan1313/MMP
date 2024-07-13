@@ -138,11 +138,7 @@ public class PlayerController : MonoBehaviour
                 transform.position,
                 transform.rotation
             );
-            Destroy(gameObject);
-            Destroy(explosionInstance, 1.0f);
-            healthBar.Destroy();
-            gameOver.Setup(ScoreManager.highScore);
-            Time.timeScale = 0f;
+            StartCoroutine(HandleDestruction(explosionInstance));
         }
     }
 
@@ -209,4 +205,21 @@ public class PlayerController : MonoBehaviour
         // Implement the laser upgrade logic
         Debug.Log("Laser upgraded by: " + amount);
     }
+
+    IEnumerator HandleDestruction(GameObject explosionInstance)
+    {
+        // Ensure explosion lasts for a short period before destroying
+        yield return new WaitForSeconds(1.0f);
+
+        // Destroy player and explosion instances
+        Destroy(explosionInstance);
+        Destroy(gameObject);
+        
+        // Show game over screen
+        healthBar.Destroy();
+        gameOver.Setup(ScoreManager.currentScore, ScoreManager.highScore, "Your ship has been destroyed.");
+
+        // Pause game
+        Time.timeScale = 0f;
+    }   
 }
