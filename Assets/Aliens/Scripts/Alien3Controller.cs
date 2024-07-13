@@ -101,7 +101,7 @@ public class Alien3Controller : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if (collision.gameObject.CompareTag("Alien"))
+        if (collision.gameObject.CompareTag("Alien")||collision.gameObject.CompareTag("Asteroid"))
         {
             // Do nothing
             return;

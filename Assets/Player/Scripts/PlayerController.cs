@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
             return;
         if (
             collision.gameObject.CompareTag("Alien")
-            || collision.gameObject.CompareTag("Laser")
+            || collision.gameObject.CompareTag("Alien Laser")
             || (collision.gameObject.CompareTag("Asteroid"))
         )
         {
