@@ -56,15 +56,5 @@ public class Asteroid : MonoBehaviour
     }
     
 
-    void split(){
-        Vector2 position = this.transform.position;
-        position +=Random.insideUnitCircle *  0.5f;
-
-        Asteroid small = Instantiate(this,position,this.transform.rotation);
-        Vector2 direction = Random.insideUnitCircle;
-        float mass =rb.mass/2;
-        small.kick(mass,direction); 
-    }
-
 
 }
