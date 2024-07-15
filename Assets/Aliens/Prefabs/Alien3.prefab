@@ -105,7 +105,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5550479250982044494}
@@ -187,7 +187,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: b1135f6293d30465ea9ee15b4d0fc4ed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -239,12 +239,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  target: reticle
+  target: Reticle
   zigzagFrequency: 4
   zigzagAmplitude: 2
   targetFound: {fileID: 0}
   Explosion: {fileID: 1431195886088156019, guid: e0ba2ada2b0130c4e99641944873b5f1, type: 3}
-  maxHealth: 3
+  maxHealth: 5
+  points: 2
 --- !u!1 &3805184954934426054
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,7 +451,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9155514295789341714}
   - component: {fileID: 7526038796679970399}
-  - component: {fileID: 3001526993812613255}
+  - component: {fileID: 8027605752807146209}
   m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
@@ -476,8 +477,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10.2, y: 153.68}
-  m_SizeDelta: {x: 180.39, y: 38.58}
+  m_AnchoredPosition: {x: 0, y: 160}
+  m_SizeDelta: {x: 220, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7526038796679970399
 MonoBehaviour:
@@ -530,7 +531,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3001526993812613255
+--- !u!114 &8027605752807146209
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -539,11 +540,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6690543771054527813}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c000caf41a8c49d38ec32a814d4a1df, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c1c36c5baa6a40d188f5bbf4d699db5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 7526038796679970399}
-  target: {fileID: 0}
+  target: {fileID: 2048191321268083635}
 --- !u!1 &9010565260161566549
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,15 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    private float speed;
+    private float speed = 5f;
+
     [SerializeField]
-    private bool enableKeyboardControl;
+    private bool enableKeyboardControl = true;
+
     [SerializeField]
     private int maxHealth = 5;
+
     [SerializeField]
     private Text healthText;
 
@@ -17,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public GameObject PlayerLaser;
     private int currentHealth;
     private Rigidbody2D rb2d;
+
     [SerializeField]
     private Animator animator;
     public GameObject Explosion;
@@ -25,6 +29,11 @@ public class PlayerController : MonoBehaviour
     private Vector2 minBounds;
     private Vector2 maxBounds;
     private float damageInterval = 1f; // Damage interval in seconds
+
+    private float maxPlayerSpeed = 14f; // Maximal player speed
+    private float laserSpeed = 15f; // Laser speed
+
+    public GameOverScreen gameOver;
 
     void Start()
     {
@@ -39,7 +48,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isDestroyed) return;
+        if (isDestroyed)
+            return;
         if (enableKeyboardControl)
         {
             float moveHorizontal = Input.GetAxis("Horizontal");
@@ -58,7 +68,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (isDestroyed) return;
+        if (isDestroyed)
+            return;
         Vector3 mouseScreenPosition = Input.mousePosition;
         Ray ray = Camera.main.ScreenPointToRay(mouseScreenPosition);
         Plane xyPlane = new Plane(Vector3.forward, Vector3.zero);
@@ -71,7 +82,7 @@ public class PlayerController : MonoBehaviour
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         }
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             FireLaser();
         }
@@ -79,15 +90,29 @@ public class PlayerController : MonoBehaviour
 
     void FireLaser()
     {
-        // Verschiebungsdistanz
         float offsetDistance = 2.0f;
-        Instantiate(PlayerLaser, transform.position + (transform.right * offsetDistance), transform.rotation);
+        GameObject laserInstance = Instantiate(
+            PlayerLaser,
+            transform.position + (transform.right * offsetDistance),
+            transform.rotation
+        );
+
+        Rigidbody2D laserRb = laserInstance.GetComponent<Rigidbody2D>();
+        if (laserRb != null)
+        {
+            laserRb.velocity = transform.right * laserSpeed;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if ((collision.gameObject.CompareTag("Reticle")) && (collision.gameObject.CompareTag("Asteroid"))) return;
-        if (collision.gameObject.CompareTag("Alien") || collision.gameObject.CompareTag("Laser"))
+        if (collision.gameObject.CompareTag("Reticle") || collision.gameObject.CompareTag("Laser") )
+            return;
+        if (
+            collision.gameObject.CompareTag("Alien")
+            || collision.gameObject.CompareTag("Alien Laser")
+            || (collision.gameObject.CompareTag("Asteroid"))
+        )
         {
             TakeDamage(1);
             Debug.Log("Ship go boom");
@@ -108,9 +133,12 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Player is dead");
             isDestroyed = true;
-            GameObject explosionInstance = Instantiate(Explosion, transform.position, transform.rotation);
-            Destroy(gameObject);
-            Destroy(explosionInstance, 1.0f);
+            GameObject explosionInstance = Instantiate(
+                Explosion,
+                transform.position,
+                transform.rotation
+            );
+            StartCoroutine(HandleDestruction(explosionInstance));
         }
     }
 
@@ -149,7 +177,49 @@ public class PlayerController : MonoBehaviour
 
     bool IsWithinBounds(Vector2 position)
     {
-        return position.x >= minBounds.x && position.x <= maxBounds.x &&
-               position.y >= minBounds.y && position.y <= maxBounds.y;
+        return position.x >= minBounds.x
+            && position.x <= maxBounds.x
+            && position.y >= minBounds.y
+            && position.y <= maxBounds.y;
     }
+
+    // Methods to handle upgrades
+    public void UpgradeSpeed(float amount)
+    {
+        speed = Mathf.Min(speed + amount, maxPlayerSpeed);
+        Debug.Log("Speed upgraded: " + speed);
+    }
+
+    public void UpgradeHealth(int amount)
+    {
+        maxHealth += amount;
+        currentHealth = maxHealth; // Reset to full health after upgrading
+        healthBar.SetMaxHealth(maxHealth);
+        healthBar.SetHealth(currentHealth);
+        UpdateHealthUI();
+        Debug.Log("Health upgraded: " + maxHealth);
+    }
+
+    public void UpgradeLaser(float amount)
+    {
+        // Implement the laser upgrade logic
+        Debug.Log("Laser upgraded by: " + amount);
+    }
+
+    IEnumerator HandleDestruction(GameObject explosionInstance)
+    {
+        // Ensure explosion lasts for a short period before destroying
+        yield return new WaitForSeconds(1.0f);
+
+        // Destroy player and explosion instances
+        Destroy(explosionInstance);
+        Destroy(gameObject);
+        
+        // Show game over screen
+        healthBar.Destroy();
+        gameOver.Setup(ScoreManager.currentScore, ScoreManager.highScore, "Your ship has been destroyed.");
+
+        // Pause game
+        Time.timeScale = 0f;
+    }   
 }

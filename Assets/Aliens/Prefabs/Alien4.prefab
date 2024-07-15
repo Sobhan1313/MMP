@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7540032578807629012}
   - component: {fileID: 7591433800504086040}
-  - component: {fileID: 1483189130226913989}
+  - component: {fileID: 3237321623109091972}
   m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
@@ -36,8 +36,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 20}
+  m_AnchoredPosition: {x: 6, y: 80}
+  m_SizeDelta: {x: 110, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7591433800504086040
 MonoBehaviour:
@@ -90,7 +90,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1483189130226913989
+--- !u!114 &3237321623109091972
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,11 +99,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 41356574592192151}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 587f24c28efc94896b890e351965b902, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c1c36c5baa6a40d188f5bbf4d699db5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 7591433800504086040}
-  target: {fileID: 0}
+  target: {fileID: 8892182711753468852}
 --- !u!1 &321024001999145707
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,7 +176,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.02, y: 1.22}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3078450622750913076
@@ -513,7 +513,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: a5590e8cb7de84baf9278e3ecc8db248, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -571,7 +571,8 @@ MonoBehaviour:
   minFireDistance: 10
   Explosion: {fileID: 1431195886088156019, guid: e0ba2ada2b0130c4e99641944873b5f1, type: 3}
   nextFireTime: 0
-  maxHealth: 2
+  maxHealth: 4
+  points: 3
 --- !u!1 &8230983125712108604
 GameObject:
   m_ObjectHideFlags: 0

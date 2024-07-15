@@ -18,46 +18,50 @@ public class Alien4Controller : MonoBehaviour
     private Animator animator;
     public GameObject Explosion;
     [SerializeField]
-    
+
     private float nextFireTime;
     private AlienSpawner alienSpawner;
     private bool isDestroyed = false;
+    [SerializeField] 
+    float maxHealth;
+    [SerializeField]
+    private int points = 3; // Punkte die bei Zerstörung dieses Aliens vergeben werden
+    FloatingHealthbar healthbar;
 
-    [SerializeField] float maxHealth;
-    FloatingHealthBar2 healthbar;
-
-    private float health; 
+    private float health;
 
 
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        healthbar = GetComponentInChildren<FloatingHealthBar2>();
+        healthbar = GetComponentInChildren<FloatingHealthbar>();
         health = maxHealth;
-        healthbar.UpdateHealthBar(health,maxHealth);
+        healthbar.UpdateHealthBar(health, maxHealth);
         animator = GetComponent<Animator>();
         alienSpawner = FindObjectOfType<AlienSpawner>();
         if (target != null)
+        {
+            targetFound = GameObject.Find(target); // Beispiel: Finde das GameObject mit dem Namen "Player"
+        }
+    }
+    private void TakeDamage(float damageAmount)
     {
-        targetFound = GameObject.Find(target); // Beispiel: Finde das GameObject mit dem Namen "Player"
-    }
-    }
-       private void TakeDamage(float damageAmount){
 
         health -= damageAmount;
-        healthbar.UpdateHealthBar(health,maxHealth);
-         
+        healthbar.UpdateHealthBar(health, maxHealth);
+
 
     }
 
     void FixedUpdate()
     {
-        if(isDestroyed) return;
+        if (isDestroyed) return;
         MoveTowardsTarget();
         RotateTowardsTarget();
 
         // Berechne die Entfernung zum Zielobjekt
-        if(targetFound != null){
+        if (targetFound != null)
+        {
             float distanceToTarget = Vector2.Distance(transform.position, targetFound.transform.position);
 
             // Laser abfeuern, wenn der Mindestabstand erreicht ist
@@ -87,12 +91,12 @@ public class Alien4Controller : MonoBehaviour
             Vector2 targetDirection = (targetFound.transform.position - transform.position).normalized;
             rb2d.velocity = targetDirection * speed;
 
-        
+
         }
         else
         {
             rb2d.velocity = Vector2.zero;
-          
+
         }
     }
 
@@ -109,26 +113,51 @@ public class Alien4Controller : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Alien"))
-    {
-        // Do nothing
-        return;
-    } else {
-        TakeDamage(1);
-        Debug.Log("Alien collided with " + collision.gameObject.name);
-        if (health <= 0) {
-            rb2d.velocity = Vector2.zero;
-            if (alienSpawner != null && !collision.gameObject.CompareTag("Reticle"))
-            {
-                alienSpawner.AlienDestroyed();
-            }
-            GameObject explosionInstance = Instantiate(Explosion, transform.position, transform.rotation);
-            isDestroyed = true;
-            Destroy(gameObject);    //Alien wird bei Kollision zerstört
-            Destroy(explosionInstance, 1.0f);
-        }
-    }
 
-    
+        if (collision.gameObject.CompareTag("Alien")||collision.gameObject.CompareTag("Asteroid"))
+        {
+            // Do nothing
+            return;
+        }
+        else
+        {
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                GameObject explosionInstance = Instantiate(Explosion, transform.position, transform.rotation);
+                rb2d.velocity = Vector2.zero;
+                if (alienSpawner != null && !collision.gameObject.CompareTag("Reticle"))
+                {
+                    alienSpawner.AlienDestroyed();
+                }
+                isDestroyed = true;
+                Destroy(gameObject);    //Alien wird bei Kollision zerstört
+                if (ScoreManager.instance != null)
+                {
+                    ScoreManager.instance.AddPoints(points);
+                }
+                Destroy(explosionInstance, 1.0f);
+            }
+            else
+            {
+                TakeDamage(1);
+                Debug.Log("Alien collided with " + collision.gameObject.name);
+                if (health <= 0)
+                {
+                    rb2d.velocity = Vector2.zero;
+                    if (alienSpawner != null && !collision.gameObject.CompareTag("Reticle"))
+                    {
+                        alienSpawner.AlienDestroyed();
+                    }
+                    GameObject explosionInstance = Instantiate(Explosion, transform.position, transform.rotation);
+                    isDestroyed = true;
+                    Destroy(gameObject);    //Alien wird bei Kollision zerstört
+                     if (ScoreManager.instance != null)
+                    {
+                        ScoreManager.instance.AddPoints(points);
+                    }
+                    Destroy(explosionInstance, 1.0f);
+                }
+            }
+        }
     }
 }

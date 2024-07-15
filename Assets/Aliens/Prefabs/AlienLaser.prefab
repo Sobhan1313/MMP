@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1751225609922106368}
   m_Layer: 0
   m_Name: AlienLaser
-  m_TagString: Laser
+  m_TagString: Alien Laser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: aa3fd8fcd7bf24de0b6480c0f88b3015, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c2c65cec7c6712e45be162883f733a43, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -175,7 +175,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 68ee30ed8f28fab4e90d08fac07393e9, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.15
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0

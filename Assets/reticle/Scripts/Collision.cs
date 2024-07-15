@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class Collision : MonoBehaviour
 {
+
+    public GameOverScreen gameOver;
     private AlienSpawner alienSpawner;
+    public GameObject healthBar;
+    public GameObject player;
 
     void Start()
     {
@@ -17,6 +21,10 @@ public class Collision : MonoBehaviour
         {
             Destroy(other.gameObject);
             alienSpawner.AlienDestroyed();
+            Destroy(player);
+            Destroy(healthBar);
+            gameOver.Setup(ScoreManager.currentScore, ScoreManager.highScore, "An alien has reached the portal.");
+            Time.timeScale = 0f;
         }
     }
 }

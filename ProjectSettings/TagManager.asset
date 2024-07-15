@@ -8,6 +8,7 @@ TagManager:
   - Alien
   - Laser
   - Reticle
+  - Alien Laser
   layers:
   - Default
   - TransparentFX
