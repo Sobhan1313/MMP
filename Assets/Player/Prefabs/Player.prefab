@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c448284cf8c0a42afc368519660dd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 5
   enableKeyboardControl: 1
   maxHealth: 5
   healthText: {fileID: 0}

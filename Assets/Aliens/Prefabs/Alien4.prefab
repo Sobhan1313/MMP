@@ -564,13 +564,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01f8ce5fa396245afb06b2d75be0ea8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 5
   target: Player
   fireRate: 5
   AlienLaser: {fileID: 5253603531829699977, guid: 067561615f0c7460ab16d563bdf6b0b0, type: 3}
   minFireDistance: 10
   Explosion: {fileID: 1431195886088156019, guid: e0ba2ada2b0130c4e99641944873b5f1, type: 3}
-  nextFireTime: 0
   maxHealth: 4
   points: 3
 --- !u!1 &8230983125712108604

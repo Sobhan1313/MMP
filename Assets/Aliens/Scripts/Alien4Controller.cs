@@ -17,8 +17,6 @@ public class Alien4Controller : MonoBehaviour
     private Rigidbody2D rb2d;
     private Animator animator;
     public GameObject Explosion;
-    [SerializeField]
-
     private float nextFireTime;
     private AlienSpawner alienSpawner;
     private bool isDestroyed = false;
